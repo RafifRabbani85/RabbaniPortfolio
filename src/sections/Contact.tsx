@@ -146,7 +146,11 @@ const Contact: React.FC = () => {
           <div>
             <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
             <p className="text-gray-400 mb-8 leading-relaxed">
+<<<<<<< HEAD
               I'm open to freelance opportunities, part-time positions, and collaborations. 
+=======
+              I'm open to freelance opportunities, full-time positions, and collaborations. 
+>>>>>>> 9c9600710a82423d7c959ffdc3cb49c580707009
               If you have a project that needs design or development expertise, let's discuss how I can help!
             </p>
             
@@ -158,7 +162,11 @@ const Contact: React.FC = () => {
                 <div>
                   <h4 className="text-lg font-semibold mb-1">Email</h4>
                   <a href="mailto:hello@example.com" className="text-gray-400 hover:text-blue-500 transition-colors">
+<<<<<<< HEAD
                     rffrafid@gmail.com
+=======
+                    hello@example.com
+>>>>>>> 9c9600710a82423d7c959ffdc3cb49c580707009
                   </a>
                 </div>
               </div>
@@ -170,7 +178,11 @@ const Contact: React.FC = () => {
                 <div>
                   <h4 className="text-lg font-semibold mb-1">Phone</h4>
                   <a href="tel:+11234567890" className="text-gray-400 hover:text-blue-500 transition-colors">
+<<<<<<< HEAD
                     +62 85 329 474 181
+=======
+                    +1 (123) 456-7890
+>>>>>>> 9c9600710a82423d7c959ffdc3cb49c580707009
                   </a>
                 </div>
               </div>
@@ -181,7 +193,11 @@ const Contact: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="text-lg font-semibold mb-1">Location</h4>
+<<<<<<< HEAD
                   <p className="text-gray-400">Kudus, Jawa Tengah</p>
+=======
+                  <p className="text-gray-400">San Francisco, California</p>
+>>>>>>> 9c9600710a82423d7c959ffdc3cb49c580707009
                 </div>
               </div>
             </div>
