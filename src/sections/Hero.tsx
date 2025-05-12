@@ -31,8 +31,8 @@ const Hero: React.FC = () => {
               Graphics Designer, UI/UX Designer & Front end web Developer
             </h2>
             <p className="text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-              I create beautiful, functional, and user-centered digital experiences. 
-              Specializing in modern web design, interactive interfaces, and creative development.
+              I craft user-centered digital products through UI/UX design, front-end web development (HTML & CSS), and visual design. 
+              Graduated from the MSIB Web Development program with hands-on project experience.
             </p>
             
             <div className="flex flex-col sm:flex-row justify-center gap-4 mb-16">
