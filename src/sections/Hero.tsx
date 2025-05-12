@@ -24,11 +24,11 @@ const Hero: React.FC = () => {
           <div className={`transition-all duration-1000 transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
             <p className="text-blue-500 font-medium mb-4">Hello, I'm</p>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
-              <span className="text-white">Alex</span>
-              <span className="text-blue-500"> Morgan</span>
+              <span className="text-white">Rafif</span>
+              <span className="text-blue-500"> Rabbani</span>
             </h1>
             <h2 className="text-xl md:text-2xl text-gray-300 mb-8">
-              UI/UX Designer & Frontend Developer
+              Graphics Designer, UI/UX Designer & Front end web Developer
             </h2>
             <p className="text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed">
               I create beautiful, functional, and user-centered digital experiences. 
