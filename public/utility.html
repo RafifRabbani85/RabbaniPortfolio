@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Image Checker</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+        h1 {
+            color: #1a73e8;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .status-good {
+            color: #34A853;
+            font-weight: bold;
+        }
+        .status-warning {
+            color: #FBBC05;
+            font-weight: bold;
+        }
+        .status-error {
+            color: #EA4335;
+            font-weight: bold;
+        }
+        .image-list {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+        }
+        .image-item {
+            border: 1px solid #eee;
+            border-radius: 6px;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .image-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .image-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            display: block;
+        }
+        .image-info {
+            padding: 10px;
+            font-size: 14px;
+        }
+        .image-info .name {
+            font-weight: bold;
+            word-break: break-all;
+        }
+        .image-info .status {
+            margin-top: 5px;
+            font-size: 12px;
+        }
+        .help-section {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #e8f0fe;
+            border-radius: 8px;
+            border-left: 4px solid #1a73e8;
+        }
+        .help-section h3 {
+            margin-top: 0;
+        }
+        .help-section code {
+            background-color: #f5f5f5;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>Project Image Checker</h1>
+    
+    <div class="container">
+        <h2>Image Status Summary</h2>
+        <p>This tool checks which project images exist in your folder.</p>
+        <div id="summary">
+            <p>Checking image status...</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>All Project Images</h2>
+        <div id="imageList" class="image-list">
+            <p>Loading...</p>
+        </div>
+    </div>
+    
+    <div class="help-section">
+        <h3>How to Add Missing Images</h3>
+        <p>To fix missing images, add image files with the exact names listed above to this folder:</p>
+        <p><code>/public/images/projects/</code></p>
+        <p>Make sure image files have the proper format (PNG) and correct case sensitivity in filenames.</p>
+        <p>Alternatively, you can edit the <code>Projects.txt</code> file to reference only image files you have.</p>
+    </div>
+
+    <footer>
+        Created for RabbaniPortfolio &copy; 2024
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const existingImages = [
+                'utshirt1.png', 
+                'utshirt2.png',
+                'rexus1.png',
+                'rexus2.png',
+                'rexus3.png',
+                'markass4.png'
+            ];
+            
+            const referencedImages = [
+                'agroverse1.png',
+                'agroverse2.png',
+                'agroverse3.png',
+                'agroverse4.png',
+                'agroverse5.png',
+                'markass1.png',
+                'markass2.png',
+                'markass3.png',
+                'markass4.png',
+                'rexus1.png',
+                'rexus2.png',
+                'rexus3.png',
+                'utshirt1.png',
+                'utshirt2.png'
+            ];
+            
+            // Find missing images
+            const missingImages = referencedImages.filter(img => !existingImages.includes(img));
+            
+            // Update summary
+            const summaryElement = document.getElementById('summary');
+            
+            const totalImages = referencedImages.length;
+            const existingCount = existingImages.filter(img => referencedImages.includes(img)).length;
+            const missingCount = missingImages.length;
+            
+            let statusClass = 'status-good';
+            if (missingCount > 0 && missingCount < totalImages / 2) {
+                statusClass = 'status-warning';
+            } else if (missingCount >= totalImages / 2) {
+                statusClass = 'status-error';
+            }
+            
+            summaryElement.innerHTML = `
+                <p><strong>Total referenced images:</strong> ${totalImages}</p>
+                <p><strong>Images found:</strong> ${existingCount}</p>
+                <p><strong>Status:</strong> <span class="${statusClass}">${
+                    missingCount === 0 ? 'All images present!' :
+                    missingCount === totalImages ? 'All images missing!' :
+                    `${missingCount} images missing`
+                }</span></p>
+            `;
+            
+            // Update images list
+            const imageListElement = document.getElementById('imageList');
+            imageListElement.innerHTML = '';
+            
+            if (referencedImages.length === 0) {
+                imageListElement.innerHTML = '<p>No images referenced in Projects.txt</p>';
+            } else {
+                // Group images by project
+                const projectMap = {
+                    'utshirt': { name: 'UTShirt Mobile App', images: [] },
+                    'agroverse': { name: 'AgroVerse Platform', images: [] },
+                    'markass': { name: 'Markass Sport Center', images: [] },
+                    'rexus': { name: 'Rexus Sport Center', images: [] }
+                };
+                
+                referencedImages.forEach(img => {
+                    // Determine which project this image belongs to
+                    let projectKey = Object.keys(projectMap).find(key => img.startsWith(key));
+                    if (!projectKey) projectKey = 'other';
+                    
+                    const exists = existingImages.includes(img);
+                    const item = document.createElement('div');
+                    item.className = 'image-item';
+                    
+                    const imgElement = document.createElement('img');
+                    if (exists) {
+                        imgElement.src = `/images/projects/${img}`;
+                        imgElement.alt = img;
+                        imgElement.onerror = function() {
+                            this.src = generatePlaceholder(img, 'Error Loading');
+                        };
+                    } else {
+                        imgElement.src = generatePlaceholder(img, 'Missing');
+                    }
+                    
+                    const infoDiv = document.createElement('div');
+                    infoDiv.className = 'image-info';
+                    infoDiv.innerHTML = `
+                        <div class="name">${img}</div>
+                        <div class="status ${exists ? 'status-good' : 'status-error'}">
+                            ${exists ? 'Found' : 'Missing'}
+                        </div>
+                    `;
+                    
+                    item.appendChild(imgElement);
+                    item.appendChild(infoDiv);
+                    imageListElement.appendChild(item);
+                });
+            }
+        });
+        
+        function generatePlaceholder(filename, text) {
+            const colors = {
+                'utshirt': '#4285F4',
+                'agroverse': '#EA4335',
+                'markass': '#34A853', 
+                'rexus': '#FBBC05'
+            };
+            
+            let color = '#888888';
+            for (const prefix in colors) {
+                if (filename.startsWith(prefix)) {
+                    color = colors[prefix];
+                    break;
+                }
+            }
+            
+            return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="120" viewBox="0 0 200 120"><rect width="200" height="120" fill="${color}" /><text x="100" y="60" font-family="Arial" font-size="14" text-anchor="middle" fill="white">${filename}</text><text x="100" y="85" font-family="Arial" font-size="12" text-anchor="middle" fill="white">${text}</text></svg>`;
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,58 @@
+=== UI/UX DESIGN ===
+
+UI/UX DESIGN
+---TITLE: UTShirt (Mobile App)
+DESC: Aplikasi mobile untuk custom desain kaos menggunakan smartphone. User bisa pilih template, ganti warna, dan upload desain sendiri sebelum order.
+IMAGES: 
+- utshirt1.png
+- utshirt2.png
+TAGS: Figma, UI/UX Design
+LINK: -
+GITHUB: -
+======
+
+WEB DEVELOPMENT
+---TITLE: AgroVerse (Website Platform)
+DESC: Platform komunitas berbasis web untuk budidaya tanaman hias. Fitur: tips perawatan, marketplace, webinar tanaman, dan konsultasi seperti Halodoc buat tanaman.
+IMAGES: 
+- agroverse1.png
+- agroverse2.png
+- agroverse3.png
+- agroverse4.png
+- agroverse5.png
+TAGS: React, Node.js, Express.js, MongoDB
+LINK: https://agro-verse-front-end-three.vercel.app/login
+GITHUB: -
+
+--- Project 2 ---
+TITLE: Markass Sport Center (Website)
+DESC: Markass Sport Center adalah platform inovatif yang memudahkan pengguna dalam memesan berbagai lapangan olahraga secara online. Kami menyediakan layanan pemesanan untuk beberapa jenis olahraga, seperti, Futsal, Badminton,Tenis Meja, Basket. Markass Sport Center hadir untuk memberikan pengalaman terbaik bagi Anda dalam bermain dan berolahraga. Nikmati kemudahan dan kenyamanan memesan lapangan kapan pun dan di mana pun!
+IMAGES: 
+- markass1.png
+- markass2.png
+- markass3.png
+- markass4.png
+TAGS: HTML, CSS, JavaScript, PHP, MySQL
+LINK: -
+GITHUB: -
+
+--- Project 3 ---
+TITLE: Rexus Sport Center (Website)
+DESC: Proyek ini merupakan sistem manajemen penyewaan lapangan olahraga untuk Rexus Sport Center. Web admin ini dirancang untuk memudahkan pengelolaan jadwal, reservasi, dan pemantauan aktivitas lapangan dengan antarmuka yang ramah pengguna. Dengan web ini, Rexus Sport Center dapat lebih efisien dalam mengelola penyewaan dan meningkatkan kepuasan pelanggan berkat proses reservasi yang lebih cepat dan terstruktur.
+IMAGES:
+- rexus1.png
+- rexus2.png
+- rexus3.png
+TAGS: HTML, CSS, JavaScript, PHP, MySQL
+LINK: -
+GITHUB: -
+======
+
+GRAPHICS DESIGN
+--- Project 1 ---
+TITLE: Coming Soon
+DESC: More graphic design projects coming soon.
+IMAGES:
+TAGS: Photoshop, Illustrator
+LINK: -
+GITHUB: -

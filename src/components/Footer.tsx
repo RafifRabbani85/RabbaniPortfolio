@@ -9,8 +9,8 @@ const Footer: React.FC = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-4 md:mb-0">
-            <a href="#home" className="text-blue-500 font-bold text-xl">
-              RABBANI<span className="text-white">.DEV</span>
+            <a href="#home" className="text-blue-500 font-bold text-xl brand-text">
+              RABB<span className="text-white">.DEV</span>
             </a>
             <p className="text-gray-400 mt-2">
               Creating beautiful digital experiences

@@ -1,190 +1,260 @@
-import React, { useState } from 'react';
-import { Project } from '../data/projects';
-import { ExternalLink, X } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { ChevronLeft, ChevronRight, ExternalLink, Github } from 'lucide-react';
 
 interface ProjectCardProps {
-  project: Project;
+  title: string;
+  description: string;
+  images: string[];
+  tags: string[];
+  link?: string;
+  github?: string;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
-  const [showModal, setShowModal] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
+const ProjectCard: React.FC<ProjectCardProps> = ({
+  title,
+  description,
+  images,
+  tags,
+  link,
+  github,
+}) => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [imageError, setImageError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const getCategoryLabel = (category: string) => {
-    switch (category) {
-      case 'ui':
-        return 'UI/UX Design';
-      case 'web':
-        return 'Web Development';
-      case 'graphic':
-        return 'Graphic Design';
-      default:
-        return category;
-    }
+  useEffect(() => {
+    setImageError(false);
+    setErrorMessage('');
+  }, [title, images]);
+
+  const nextImage = () => {
+    if (images.length <= 1) return;
+    setCurrentImageIndex((prev) => (prev + 1) % images.length);
+    setImageError(false);
+    setErrorMessage('');
   };
 
-  return (
-    <>
-      <motion.div 
-        className="group relative bg-gray-800 rounded-lg overflow-hidden cursor-none"
-        whileHover={{ scale: 1.05 }}
-        onHoverStart={() => setIsHovered(true)}
-        onHoverEnd={() => setIsHovered(false)}
-        onClick={() => setShowModal(true)}
-      >
-        <div className="aspect-[4/3] overflow-hidden">
-          <motion.img 
-            src={project.thumbnail} 
-            alt={project.title} 
-            className="w-full h-full object-cover"
-            animate={isHovered ? { scale: 1.1 } : { scale: 1 }}
-            transition={{ duration: 0.5 }}
-          />
-        </div>
-        <motion.div 
-          className="p-6"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-        >
-          <motion.span 
-            className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-blue-900/50 text-blue-300 mb-3"
-            whileHover={{ scale: 1.1 }}
-          >
-            {getCategoryLabel(project.category)}
-          </motion.span>
-          <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-          <p className="text-gray-400 line-clamp-2">{project.description}</p>
-        </motion.div>
-        <motion.div 
-          className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-0 flex items-end justify-center pb-12"
-          animate={{ opacity: isHovered ? 1 : 0 }}
-        >
-          <motion.button 
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            View Details
-          </motion.button>
-        </motion.div>
-      </motion.div>
+  const prevImage = () => {
+    if (images.length <= 1) return;
+    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+    setImageError(false);
+    setErrorMessage('');
+  };
 
-      {showModal && (
-        <motion.div 
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 overflow-y-auto"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
-          <motion.div 
-            className="bg-gray-900 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"
-            initial={{ scale: 0.9, y: 50 }}
-            animate={{ scale: 1, y: 0 }}
-            exit={{ scale: 0.9, y: 50 }}
-            onClick={(e) => e.stopPropagation()}
+  const getImagePath = (imageName: string) => {
+    if (!imageName) return '';
+    return `/images/projects/${imageName.trim()}`;
+  };
+
+  const generatePlaceholderImage = (text: string) => {
+    const colors = [
+      '#4285F4', // Google Blue
+      '#EA4335', // Google Red
+      '#FBBC05', // Google Yellow
+      '#34A853', // Google Green
+      '#5E35B1', // Deep Purple
+      '#00897B', // Teal
+      '#C2185B', // Pink
+    ];
+    
+    const hash = text.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    const color = colors[hash % colors.length];
+    
+    // Generate a clean title for SVG
+    const cleanTitle = title.replace(/[<>]/g, '');
+    
+    return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450"><rect width="800" height="450" fill="${color}" /><text x="400" y="225" font-family="Arial" font-size="32" text-anchor="middle" fill="white">${cleanTitle}</text></svg>`;
+  };
+
+  const handleImageError = () => {
+    const imagePath = getImagePath(images[currentImageIndex]);
+    setErrorMessage(`Image not found: ${imagePath}`);
+    setImageError(true);
+  };
+
+  // Exit early if no images
+  if (!images || images.length === 0) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="bg-dark-800 rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 h-full"
+      >
+        <div className="p-6 h-full flex flex-col">
+          <h3 className="text-xl font-bold mb-2 text-white">{title}</h3>
+          <p className="text-gray-400 mb-4">{description}</p>
+          <div 
+            className="bg-dark-900 p-4 text-center text-gray-500 rounded mb-4 aspect-video flex items-center justify-center"
+            style={{
+              backgroundImage: `url("${generatePlaceholderImage(title)}")`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center'
+            }}
           >
-            <div className="relative">
-              <img 
-                src={project.image || project.thumbnail} 
-                alt={project.title} 
-                className="w-full h-64 sm:h-80 object-cover"
-              />
-              <motion.button 
-                className="absolute top-4 right-4 p-2 bg-gray-900/80 rounded-full text-white hover:bg-gray-800 transition-colors"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setShowModal(false)}
+            <span className="bg-black/50 px-3 py-1 rounded text-white">No images available</span>
+          </div>
+          
+          {/* Tags */}
+          <div className="flex flex-wrap gap-2 mb-4 mt-auto">
+            {tags && tags.length > 0 && tags.map((tag) => (
+              <span
+                key={tag}
+                className="px-3 py-1 bg-dark-700 text-sm rounded-full text-gray-300"
               >
-                <X size={20} />
-              </motion.button>
-            </div>
-            
-            <div className="p-6 sm:p-8">
-              <div className="flex items-center justify-between mb-4">
-                <motion.span 
-                  className="px-3 py-1 rounded-full text-xs font-medium bg-blue-900/50 text-blue-300"
-                  whileHover={{ scale: 1.1 }}
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          {/* Links */}
+          <div className="flex gap-4">
+            {link && link !== '-' && (
+              <a
+                href={link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-blue-450 hover:text-blue-400 transition-colors"
+              >
+                <ExternalLink className="w-4 h-4" />
+                Visit Site
+              </a>
+            )}
+            {github && github !== '-' && (
+              <a
+                href={github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-blue-450 hover:text-blue-400 transition-colors"
+              >
+                <Github className="w-4 h-4" />
+                Source Code
+              </a>
+            )}
+          </div>
+        </div>
+      </motion.div>
+    );
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="bg-dark-800 rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 h-full flex flex-col"
+    >
+      {/* Image Carousel */}
+      <div className="relative aspect-video bg-dark-900 overflow-hidden group">
+        {imageError ? (
+          <div 
+            className="w-full h-full flex flex-col items-center justify-center"
+            style={{
+              backgroundImage: `url("${generatePlaceholderImage(title)}")`, 
+              backgroundSize: 'cover',
+              backgroundPosition: 'center'
+            }}
+          >
+            <div className="bg-black/60 px-4 py-2 rounded">
+              <p className="text-white">Image preview not available</p>
+              <p className="text-sm mt-1 text-gray-300">Using placeholder image</p>
+              {images.length > 1 && (
+                <button 
+                  onClick={nextImage} 
+                  className="mt-3 w-full px-3 py-1 bg-blue-600 text-white rounded-md text-sm"
                 >
-                  {getCategoryLabel(project.category)}
-                </motion.span>
-                <span className="text-gray-400 text-sm">{project.date}</span>
-              </div>
-              
-              <h2 className="text-2xl sm:text-3xl font-bold mb-4">{project.title}</h2>
-              <p className="text-gray-400 mb-6">{project.description}</p>
-              
-              {project.features && project.features.length > 0 && (
-                <div className="mb-6">
-                  <h3 className="text-lg font-semibold mb-3">Key Features</h3>
-                  <ul className="list-disc list-inside text-gray-400 space-y-2">
-                    {project.features.map((feature, index) => (
-                      <motion.li 
-                        key={index}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.1 }}
-                      >
-                        {feature}
-                      </motion.li>
-                    ))}
-                  </ul>
-                </div>
+                  Try next image
+                </button>
               )}
-              
-              {project.technologies && project.technologies.length > 0 && (
-                <div className="mb-6">
-                  <h3 className="text-lg font-semibold mb-3">Technologies Used</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies.map((tech, index) => (
-                      <motion.span 
-                        key={index} 
-                        className="px-3 py-1 bg-gray-800 text-gray-300 rounded-md text-sm"
-                        whileHover={{ scale: 1.1 }}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: index * 0.1 }}
-                      >
-                        {tech}
-                      </motion.span>
-                    ))}
-                  </div>
-                </div>
-              )}
-              
-              <div className="flex flex-wrap gap-4 mt-8">
-                {project.liveUrl && (
-                  <motion.a 
-                    href={project.liveUrl} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors flex items-center"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <ExternalLink size={16} className="mr-2" /> View Live
-                  </motion.a>
-                )}
-                
-                {project.codeUrl && (
-                  <motion.a 
-                    href={project.codeUrl} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="px-4 py-2 border border-gray-600 hover:border-blue-500 hover:text-blue-500 text-gray-300 rounded-md transition-colors"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    View Code
-                  </motion.a>
-                )}
-              </div>
             </div>
-          </motion.div>
-        </motion.div>
-      )}
-    </>
+          </div>
+        ) : (
+          <img
+            src={getImagePath(images[currentImageIndex])}
+            alt={`${title} screenshot ${currentImageIndex + 1}`}
+            onError={handleImageError}
+            className="w-full h-full object-cover object-center"
+          />
+        )}
+        
+        {/* Only show controls if we have more than one image */}
+        {images.length > 1 && !imageError && (
+          <>
+            <button
+              onClick={prevImage}
+              className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              aria-label="Previous image"
+            >
+              <ChevronLeft className="w-6 h-6 text-white" />
+            </button>
+            <button
+              onClick={nextImage}
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              aria-label="Next image"
+            >
+              <ChevronRight className="w-6 h-6 text-white" />
+            </button>
+            
+            {/* Image indicators */}
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
+              {images.map((_, index) => (
+                <div
+                  key={index}
+                  className={`w-1.5 h-1.5 rounded-full transition-colors duration-300 ${
+                    index === currentImageIndex ? 'bg-white' : 'bg-white/50'
+                  }`}
+                />
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+
+      {/* Content */}
+      <div className="p-6 flex flex-col flex-grow">
+        <h3 className="text-xl font-bold mb-2 text-white">{title}</h3>
+        <p className="text-gray-400 mb-4">{description}</p>
+        
+        {/* Tags */}
+        <div className="flex flex-wrap gap-2 mb-4 mt-auto">
+          {tags && tags.length > 0 && tags.map((tag) => (
+            <span
+              key={tag}
+              className="px-3 py-1 bg-dark-700 text-sm rounded-full text-gray-300"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        {/* Links */}
+        <div className="flex gap-4">
+          {link && link !== '-' && (
+            <a
+              href={link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-blue-450 hover:text-blue-400 transition-colors"
+            >
+              <ExternalLink className="w-4 h-4" />
+              Visit Site
+            </a>
+          )}
+          {github && github !== '-' && (
+            <a
+              href={github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-blue-450 hover:text-blue-400 transition-colors"
+            >
+              <Github className="w-4 h-4" />
+              Source Code
+            </a>
+          )}
+        </div>
+      </div>
+    </motion.div>
   );
 };
 
