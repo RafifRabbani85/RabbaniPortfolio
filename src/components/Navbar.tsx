@@ -33,11 +33,7 @@ const Navbar: React.FC = () => {
         <div className="flex justify-between items-center h-16 md:h-20">
           <div className="flex items-center">
             <a href="#home" className="text-blue-500 font-bold text-xl md:text-2xl">
-<<<<<<< HEAD
               RABBANI<span className="text-white">.DEV</span>
-=======
-              DESIGN<span className="text-white">.DEV</span>
->>>>>>> 9c9600710a82423d7c959ffdc3cb49c580707009
             </a>
           </div>
 

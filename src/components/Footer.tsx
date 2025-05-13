@@ -10,11 +10,7 @@ const Footer: React.FC = () => {
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-4 md:mb-0">
             <a href="#home" className="text-blue-500 font-bold text-xl">
-<<<<<<< HEAD
               RABBANI<span className="text-white">.DEV</span>
-=======
-              DESIGN<span className="text-white">.DEV</span>
->>>>>>> 9c9600710a82423d7c959ffdc3cb49c580707009
             </a>
             <p className="text-gray-400 mt-2">
               Creating beautiful digital experiences
@@ -58,11 +54,7 @@ const Footer: React.FC = () => {
         
         <div className="border-t border-gray-800 mt-8 pt-6 text-center">
           <p className="text-gray-500 flex items-center justify-center">
-<<<<<<< HEAD
             © {currentYear} Rafif Rabbani. All rights reserved. Made with <Heart size={14} className="mx-1 text-red-500" /> and React.
-=======
-            © {currentYear} Alex Morgan. All rights reserved. Made with <Heart size={14} className="mx-1 text-red-500" /> and React.
->>>>>>> 9c9600710a82423d7c959ffdc3cb49c580707009
           </p>
         </div>
       </div>

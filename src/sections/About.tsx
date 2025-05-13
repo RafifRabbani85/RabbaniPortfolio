@@ -5,17 +5,9 @@ import { Code, Palette, Layout, Monitor } from 'lucide-react';
 const About: React.FC = () => {
   const skills = [
     { name: 'UI/UX Design', progress: 95 },
-<<<<<<< HEAD
     { name: 'Graphic Design', progress: 95 },
     { name: 'Microsoft Office', progress: 95 },
     { name: 'Web Development', progress: 90 },
-=======
-    { name: 'HTML & CSS', progress: 90 },
-    { name: 'JavaScript/TypeScript', progress: 85 },
-    { name: 'React & Vue', progress: 80 },
-    { name: 'Graphic Design', progress: 85 },
-    { name: 'Node.js', progress: 75 },
->>>>>>> 9c9600710a82423d7c959ffdc3cb49c580707009
   ];
 
   const services = [
@@ -36,13 +28,8 @@ const About: React.FC = () => {
     },
     {
       icon: <Monitor className="w-8 h-8 text-blue-500" />,
-<<<<<<< HEAD
       title: 'Microsoft Office',
       description: 'Mastering Microsoft Office Suite to streamline productivity and create impactful documents.'
-=======
-      title: 'Digital Consulting',
-      description: 'Providing expert advice on digital strategy, user experience, and technical implementation.'
->>>>>>> 9c9600710a82423d7c959ffdc3cb49c580707009
     }
   ];
 
@@ -57,14 +44,9 @@ const About: React.FC = () => {
           <h2 className="text-3xl md:text-4xl font-bold mb-4">About Me</h2>
           <div className="w-20 h-1 bg-blue-500 mx-auto mb-6"></div>
           <p className="text-gray-400">
-<<<<<<< HEAD
-            I’m a passionate tech enthusiast and creative mind from Kudus, 
+            I'm a passionate tech enthusiast and creative mind from Kudus, 
             blending the worlds of web development, UI/UX design, and sports. 
             With a strong foundation in both logic and visuals, I love turning ideas into clean, responsive, and user-friendly digital experiences.
-=======
-            I'm a passionate designer and developer with over 7 years of experience creating
-            digital products that users love.
->>>>>>> 9c9600710a82423d7c959ffdc3cb49c580707009
           </p>
         </div>
 
@@ -73,23 +55,12 @@ const About: React.FC = () => {
           <div>
             <h3 className="text-2xl font-bold mb-6">My Story</h3>
             <p className="text-gray-400 mb-6 leading-relaxed">
-<<<<<<< HEAD
               My journey started in vocational school as an Audio Video Engineering student, where I built a solid understanding of technical systems. 
               Over time, I found my passion in web development and UI/UX design, which led me to pursue Information Systems at Universitas Muria Kudus.
             </p>
             <p className="text-gray-400 mb-6 leading-relaxed">
-              Outside of tech, I’m also a huge fan of sports — that’s why many of my projects combine digital innovation with active lifestyles. 
-              Whether I’m designing interfaces or crafting front-end code, I aim to build impactful platforms that are not only functional, but also feel intuitive and alive.
-=======
-              I began my journey as a graphic designer and gradually transitioned into UI/UX and 
-              web development. This multi-disciplinary background allows me to bridge the gap 
-              between design and implementation, creating cohesive digital experiences.
-            </p>
-            <p className="text-gray-400 mb-6 leading-relaxed">
-              My approach combines aesthetic sensibility with technical knowledge, resulting in 
-              solutions that are not only beautiful but also functional and user-friendly. I believe 
-              in designing with purpose and coding with precision.
->>>>>>> 9c9600710a82423d7c959ffdc3cb49c580707009
+              Outside of tech, I'm also a huge fan of sports — that's why many of my projects combine digital innovation with active lifestyles. 
+              Whether I'm designing interfaces or crafting front-end code, I aim to build impactful platforms that are not only functional, but also feel intuitive and alive.
             </p>
             <div className="flex space-x-4 mt-8">
               <a 
