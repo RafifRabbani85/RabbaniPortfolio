@@ -19,11 +19,31 @@
   body {
     font-family: 'Inter', sans-serif;
     @apply text-gray-100 bg-gray-950;
+    cursor: none;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Poppins', sans-serif;
   }
+
+  a, button {
+    cursor: none;
+  }
+
+  /* Interactive elements hover state */
+  a:hover, button:hover {
+    @apply scale-105 transition-transform duration-300;
+  }
+}
+
+/* Custom cursor styles */
+.custom-cursor {
+  @apply pointer-events-none fixed z-50 mix-blend-difference;
+}
+
+/* Card hover effects */
+.hover-card {
+  @apply transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-blue-500/20;
 }
 
 .gradient-text {
@@ -42,6 +62,20 @@
   transform: translateY(0);
 }
 
+/* Interactive button styles */
+.interactive-button {
+  @apply relative overflow-hidden transition-all duration-300;
+}
+
+.interactive-button::after {
+  content: '';
+  @apply absolute inset-0 bg-blue-500/20 scale-x-0 origin-left transition-transform duration-300;
+}
+
+.interactive-button:hover::after {
+  @apply scale-x-100;
+}
+
 /* ScrollBar Styling */
 ::-webkit-scrollbar {
   width: 10px;
@@ -55,4 +89,39 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background-color: #2563EB;
+}
+
+/* Project card hover effects */
+.project-card {
+  @apply transform transition-all duration-500;
+}
+
+.project-card:hover {
+  @apply -translate-y-2 scale-[1.02];
+}
+
+.project-card::after {
+  content: '';
+  @apply absolute inset-0 bg-gradient-to-t from-blue-500/20 to-transparent opacity-0 transition-opacity duration-300;
+}
+
+.project-card:hover::after {
+  @apply opacity-100;
+}
+
+/* Skill bar animation */
+.skill-bar {
+  @apply relative overflow-hidden;
+}
+
+.skill-bar::after {
+  content: '';
+  @apply absolute inset-0 bg-blue-400/20 -translate-x-full;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
 }

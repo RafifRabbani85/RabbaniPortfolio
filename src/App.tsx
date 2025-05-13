@@ -5,10 +5,12 @@ import Portfolio from './sections/Portfolio';
 import About from './sections/About';
 import Contact from './sections/Contact';
 import Footer from './components/Footer';
+import CursorFollower from './components/CursorFollower';
 
 function App() {
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100 overflow-x-hidden">
+      <CursorFollower />
       <Navbar />
       <main>
         <Hero />
