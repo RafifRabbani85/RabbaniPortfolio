@@ -36,10 +36,10 @@ const CursorFollower: React.FC = () => {
         }}
       >
         <div className="relative w-full h-full">
-          {/* Character face */}
-          <div className="absolute inset-0 bg-blue-500 rounded-full opacity-20" />
-          <div className="absolute inset-2 bg-blue-500 rounded-full" />
-          {/* Eyes */}
+          {/* Robot head */}
+          <div className="absolute inset-0 bg-blue-500 rounded-lg opacity-20" />
+          <div className="absolute inset-2 bg-blue-500 rounded-lg" />
+          {/* Robot eyes */}
           <motion.div 
             className="absolute w-1.5 h-1.5 bg-white rounded-full"
             style={{
@@ -54,6 +54,8 @@ const CursorFollower: React.FC = () => {
               top: '40%',
             }}
           />
+          {/* Robot antenna */}
+          <div className="absolute w-1 h-2 bg-blue-500 -top-2 left-1/2 transform -translate-x-1/2" />
         </div>
       </motion.div>
     </div>
