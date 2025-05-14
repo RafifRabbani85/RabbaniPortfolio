@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowDown } from 'lucide-react';
+import Scene3D from '../components/Scene3D';
 
 const Hero: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -51,6 +52,9 @@ const Hero: React.FC = () => {
           </div>
         </div>
       </div>
+      
+      {/* 3D Robot Character */}
+      <Scene3D />
       
       {/* Scroll indicator */}
       <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
